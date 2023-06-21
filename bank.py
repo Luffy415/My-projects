@@ -1,8 +1,10 @@
 import sqlite3
+import getpass
+
 import random as r
 
 
-conn = sqlite3.connect("bank.db")
+conn = sqlite3.connect("bank.db", check_same_thread = False)
 cur = conn.cursor()
 
 
@@ -24,9 +26,9 @@ def NewUser(name, pin, amount):
 def CheckUsers():
     owner = input("Are you my owner? (y/n): ").lower()
     if owner ==  'y':
-        password = int(input("Then tell me the password: "))
+        password = int(getpass.getpass("Then tell me the password: "))
         if password == 1275:
-            choose = input("Hey owner what do you want to do today?\nCheck accounts\n: ").lower()
+            choose = input("Hey owner what do you want to do today? (Except semx)\nCheck accounts\n: ").lower()
             if choose == 'check accounts':
                 cur.execute("SELECT * FROM bank")
                 infos = cur.fetchall()
